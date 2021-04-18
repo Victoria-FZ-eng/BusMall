@@ -1,4 +1,5 @@
 'use strict';
+alert('Select Your Favorite Product From The Above');
 
 let firstEl = document.getElementById('first');
 let secEl = document.getElementById('second');
@@ -73,6 +74,7 @@ function renderImgs(){
 }
 renderImgs();
 
+
 function handleClicking(event){
   round++;
   if(round <= maxRound){
@@ -98,6 +100,7 @@ function handleClicking(event){
     secEl.removeEventListener('click', handleClicking);
     thirdEl.removeEventListener('click', handleClicking);
 
+
   }
 }
 
@@ -116,6 +119,7 @@ function renderList(){
 firstEl.addEventListener('click', handleClicking);
 secEl.addEventListener('click', handleClicking);
 thirdEl.addEventListener('click', handleClicking);
+
 
 
 
