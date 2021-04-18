@@ -77,6 +77,7 @@ renderImgs();
 
 function handleClicking(event){
   round++;
+
   if(round <= maxRound){
     if(event.target.id === 'first'){
       Products.allProducts[leftIndex].select++;
@@ -95,13 +96,14 @@ function handleClicking(event){
     cont.appendChild(btn);
     btn.setAttribute('id', 'box');
     btn.textContent='View Results';
-    btn.addEventListener('click', renderList);
+    btn.addEventListener('click', renderList, {once:true});
     firstEl.removeEventListener('click', handleClicking);
     secEl.removeEventListener('click', handleClicking);
     thirdEl.removeEventListener('click', handleClicking);
-
+    btn.target.removeEventListener('click', handleClicking);
 
   }
+
 }
 
 
@@ -119,7 +121,6 @@ function renderList(){
 firstEl.addEventListener('click', handleClicking);
 secEl.addEventListener('click', handleClicking);
 thirdEl.addEventListener('click', handleClicking);
-
 
 
 
