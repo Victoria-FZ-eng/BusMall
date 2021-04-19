@@ -4,9 +4,10 @@ alert('Select Your Favorite Product From The Above');
 let firstEl = document.getElementById('first');
 let secEl = document.getElementById('second');
 let thirdEl = document.getElementById('third');
+let sec = document.getElementById('section');
 
-var round = 0;
-var maxRound = 25;
+let round = 0;
+let maxRound = 25;
 
 
 
@@ -81,16 +82,24 @@ function handleClicking(event){
   if(round <= maxRound){
     if(event.target.id === 'first'){
       Products.allProducts[leftIndex].select++;
+
     }
     else if(event.target.id === 'second'){
       Products.allProducts[middleIndex].select++;
+
     }
     else if(event.target.id === 'third'){
       Products.allProducts[rightIndex].select++;
+
+    }
+    else {
+      alert('please click on one of the products');
+      round--;
     }
     renderImgs();
   }
   else if (round > maxRound){
+    sec.removeEventListener('click', handleClicking);
     let cont = document.getElementById('list');
     let btn = document.createElement('botton');
     cont.appendChild(btn);
@@ -118,10 +127,10 @@ function renderList(){
   }
 
 }
-firstEl.addEventListener('click', handleClicking);
-secEl.addEventListener('click', handleClicking);
-thirdEl.addEventListener('click', handleClicking);
-
+// firstEl.addEventListener('click', handleClicking);
+// secEl.addEventListener('click', handleClicking);
+// thirdEl.addEventListener('click', handleClicking);
+sec.addEventListener('click', handleClicking);
 
 
 
