@@ -4,11 +4,12 @@ alert('Select Your Favorite Product From The Above');
 let firstEl = document.getElementById('first');
 let secEl = document.getElementById('second');
 let thirdEl = document.getElementById('third');
-let sec = document.getElementById('section');
+// let sec = document.getElementById('section');
 
 let round = 0;
 let maxRound = 25;
 
+let prodNames = [];
 
 
 function Products(name, path){
@@ -17,6 +18,7 @@ function Products(name, path){
   this.times = 0;
   this.select = 0;
   Products.allProducts.push(this);
+  prodNames.push(this.name);
 
 }
 
@@ -52,25 +54,37 @@ function randomIndex(){
   return Math.floor(Math.random()*Products.allProducts.length);
 
 }
-
+let selectionArray = [];
 function renderImgs(){
-  leftIndex = randomIndex();
-  middleIndex = randomIndex();
-  rightIndex = randomIndex();
 
-  while ((leftIndex === middleIndex) || (leftIndex === rightIndex) || (middleIndex === rightIndex)){
+  // if (selectionArray.length === 0){
+  //   leftIndex = randomIndex();
+  //   middleIndex = randomIndex();
+  //   rightIndex = randomIndex();
+  //   selectionArray.push(rightIndex);
+  //   selectionArray.push(leftIndex);
+  //   selectionArray.push(middleIndex);
+  // }
+
+  while ( selectionArray.includes(leftIndex) || selectionArray.includes(rightIndex) || selectionArray.includes(middleIndex) || leftIndex === rightIndex || leftIndex === middleIndex || middleIndex === rightIndex ){
     rightIndex = randomIndex();
     middleIndex = randomIndex();
+    leftIndex = randomIndex();
   }
+  selectionArray[0]=leftIndex;
+  selectionArray[1]= middleIndex;
+  selectionArray[2] = rightIndex;
 
-  firstEl.src=Products.allProducts[leftIndex].path;
-  Products.allProducts[leftIndex].times++;
 
-  secEl.src=Products.allProducts[middleIndex].path;
-  Products.allProducts[middleIndex].times++;
 
-  thirdEl.src=Products.allProducts[rightIndex].path;
-  Products.allProducts[rightIndex].times++;
+  firstEl.src=Products.allProducts[selectionArray[0]].path;
+  Products.allProducts[selectionArray[0]].times++;
+
+  secEl.src=Products.allProducts[selectionArray[1]].path;
+  Products.allProducts[selectionArray[1]].times++;
+
+  thirdEl.src=Products.allProducts[selectionArray[2]].path;
+  Products.allProducts[selectionArray[2]].times++;
 
 }
 renderImgs();
@@ -92,29 +106,34 @@ function handleClicking(event){
       Products.allProducts[rightIndex].select++;
 
     }
-    else {
-      alert('please click on one of the products');
-      round--;
-    }
+    // else {
+    //   alert('please click on one of the products');
+    //   round--;
+    // }
     renderImgs();
   }
   else if (round > maxRound){
-    sec.removeEventListener('click', handleClicking);
+    // sec.removeEventListener('click', handleClicking);
     let cont = document.getElementById('list');
     let btn = document.createElement('botton');
     cont.appendChild(btn);
     btn.setAttribute('id', 'box');
     btn.textContent='View Results';
     btn.addEventListener('click', renderList, {once:true});
+
     firstEl.removeEventListener('click', handleClicking);
     secEl.removeEventListener('click', handleClicking);
     thirdEl.removeEventListener('click', handleClicking);
-    btn.target.removeEventListener('click', handleClicking);
+    btn.removeEventListener('click', handleClicking);
+
 
   }
 
+
 }
 
+let prodVotes = [];
+let timeShown = [];
 
 function renderList(){
   let container = document.getElementById('list');
@@ -124,13 +143,46 @@ function renderList(){
     let list = document.createElement('li');
     unorder.appendChild(list);
     list.textContent=`The product (${Products.allProducts[i].name}); has ${Products.allProducts[i].select} votes and was seen ${Products.allProducts[i].times} times.`;
+    prodVotes.push(Products.allProducts[i].select);
+    timeShown.push(Products.allProducts[i].times);
   }
+  chart();
 
 }
-// firstEl.addEventListener('click', handleClicking);
-// secEl.addEventListener('click', handleClicking);
-// thirdEl.addEventListener('click', handleClicking);
-sec.addEventListener('click', handleClicking);
+firstEl.addEventListener('click', handleClicking);
+secEl.addEventListener('click', handleClicking);
+thirdEl.addEventListener('click', handleClicking);
+// sec.addEventListener('click', handleClicking);
 
+
+
+
+function chart(){
+  let ctx = document.getElementById('myChart').getContext('2d');
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: prodNames,
+      datasets: [{
+        label: 'Votes',
+        data: prodVotes,
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.9)',
+        ],
+
+        borderWidth: 1 },{
+
+
+        label: 'showing times',
+        data: timeShown,
+        backgroundColor: [
+          'rgba(201, 95, 97, 0.9)',
+        ],
+
+        borderWidth: 1
+      }]
+    }
+  });
+}
 
 
