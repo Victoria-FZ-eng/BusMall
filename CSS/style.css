@@ -36,7 +36,7 @@ img {
 ul{
     margin: 40px;
     padding: 40px;
-    background-color:rgba(236, 190, 190, 0.70);
+    background-color:rgba(192,192,192,.4);
     
 }
 ul li{
@@ -63,5 +63,11 @@ main{
     background-repeat: no-repeat;
     background-size: 100%;
     background-attachment: fixed;
+
+}
+
+#myChart{
+    padding: 10px;
+    background-color:rgba(192,192,192,.7);
 
 }
