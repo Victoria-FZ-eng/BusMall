@@ -126,7 +126,6 @@ function handleClicking(event){
     thirdEl.removeEventListener('click', handleClicking);
     btn.removeEventListener('click', handleClicking);
 
-
   }
 
 
@@ -145,16 +144,21 @@ function renderList(){
     list.textContent=`The product (${Products.allProducts[i].name}); has ${Products.allProducts[i].select} votes and was seen ${Products.allProducts[i].times} times.`;
     prodVotes.push(Products.allProducts[i].select);
     timeShown.push(Products.allProducts[i].times);
+
   }
   chart();
-
+  setArr();
+  
+ 
 }
 firstEl.addEventListener('click', handleClicking);
 secEl.addEventListener('click', handleClicking);
 thirdEl.addEventListener('click', handleClicking);
 // sec.addEventListener('click', handleClicking);
+ getArr();
 
 
+console.log(Products.allProducts);
 
 
 function chart(){
@@ -183,6 +187,22 @@ function chart(){
       }]
     }
   });
+}
+
+
+function setArr(){
+  let slarr = JSON.stringify(Products.allProducts);
+  localStorage.setItem('Votes', slarr);
+
+}
+
+function getArr(){
+  if (setArr !== null ){
+    let vD = localStorage.getItem('Votes');
+    let voteData = JSON.parse(vD);
+    Products.allProducts = voteData;
+   
+  }
 }
 
 
