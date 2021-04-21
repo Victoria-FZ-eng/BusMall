@@ -110,7 +110,7 @@ function handleClicking(event){
     //   alert('please click on one of the products');
     //   round--;
     // }
-    getArr();
+    
     renderImgs();
 
   }
@@ -153,7 +153,7 @@ function renderList(){
   console.log(Products.allProducts);
   chart();
 
-
+  
 
 }
 firstEl.addEventListener('click', handleClicking);
@@ -161,7 +161,7 @@ secEl.addEventListener('click', handleClicking);
 thirdEl.addEventListener('click', handleClicking);
 // sec.addEventListener('click', handleClicking);
 
-
+getArr();
 
 
 
