@@ -110,7 +110,9 @@ function handleClicking(event){
     //   alert('please click on one of the products');
     //   round--;
     // }
+    
     renderImgs();
+
   }
   else if (round > maxRound){
     // sec.removeEventListener('click', handleClicking);
@@ -127,6 +129,8 @@ function handleClicking(event){
     btn.removeEventListener('click', handleClicking);
 
   }
+  setArr();
+
 
 
 }
@@ -146,19 +150,20 @@ function renderList(){
     timeShown.push(Products.allProducts[i].times);
 
   }
+  console.log(Products.allProducts);
   chart();
-  setArr();
+
   
- 
+
 }
 firstEl.addEventListener('click', handleClicking);
 secEl.addEventListener('click', handleClicking);
 thirdEl.addEventListener('click', handleClicking);
 // sec.addEventListener('click', handleClicking);
- getArr();
+
+getArr();
 
 
-console.log(Products.allProducts);
 
 
 function chart(){
@@ -194,15 +199,19 @@ function setArr(){
   let slarr = JSON.stringify(Products.allProducts);
   localStorage.setItem('Votes', slarr);
 
+
+
 }
 
 function getArr(){
-  if (setArr !== null ){
-    let vD = localStorage.getItem('Votes');
+
+
+  let vD = localStorage.getItem('Votes');
+  if(vD !== null){
     let voteData = JSON.parse(vD);
-    Products.allProducts = voteData;
-   
-  }
+    Products.allProducts = voteData;}
+
+
 }
 
 
